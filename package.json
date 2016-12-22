@@ -12,11 +12,7 @@
   "keywords": [],
   "author": "",
   "license": "GNU",
-  "pre-commit": [
-    "lint",
-    "validate",
-    "test"
-  ],
+  "pre-commit": [],
   "devDependencies": {
     "ava": "^0.17.0",
     "chokidar-cli": "^1.2.0",
