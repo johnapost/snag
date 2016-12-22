@@ -5,6 +5,7 @@ if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET || !process.env.PORT ||
     process.exit(1);
 }
 
+
 var config = {}
 
 var controller = Botkit.slackbot(config).configureSlackApp(

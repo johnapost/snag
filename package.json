@@ -4,21 +4,31 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "validate": "npm ls",
+    "build": "docker build -t snag .",
+    "dev": "chokidar '**/*.js' -c 'semistandard && ava'",
+    "lint": "semistandard",
+    "serve": "docker run -p 49160:8888 -d snag",
+    "start": "nodemon index.js",
     "test": "ava",
-    "lint": "standard",
-    "start": "node index.js",
-    "dev": "chokidar '**/*.js' -c 'standard && ava'"
+    "validate": "npm ls"
   },
   "keywords": [],
   "author": "",
-  "license": "GNU",
+  "license": "GPL-3.0",
+  "engines": {
+    "node": "4.3.2"
+  },
   "pre-commit": [],
   "devDependencies": {
     "ava": "^0.17.0",
     "chokidar-cli": "^1.2.0",
+    "nodemon": "^1.11.0",
     "precommit-hook": "^3.0.0",
-    "standard": "^8.6.0"
+    "semistandard": "^9.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrisbodhi/snag"
   },
   "dependencies": {
     "botkit": "^0.4.5"
