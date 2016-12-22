@@ -6,17 +6,24 @@
   "scripts": {
     "validate": "npm ls",
     "test": "ava",
-    "lint": "standard",
-    "dev": "chokidar '**/*.js' -c 'standard && ava'"
+    "lint": "semistandard",
+    "dev": "chokidar '**/*.js' -c 'semistandard && ava'"
   },
   "keywords": [],
   "author": "",
-  "license": "GNU",
+  "license": "GPL-3.0",
+  "engines": {
+    "node": "4.3.2"
+  },
   "pre-commit": [],
   "devDependencies": {
     "ava": "^0.17.0",
     "chokidar-cli": "^1.2.0",
     "precommit-hook": "^3.0.0",
-    "standard": "^8.6.0"
+    "semistandard": "^9.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chrisbodhi/snag"
   }
 }

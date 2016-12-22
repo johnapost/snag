@@ -1,4 +1,4 @@
-const meaningOfLife = require('./lib/meaningOfLife')
-const multiply = require('./lib/multiply')
+const meaningOfLife = require('./lib/meaningOfLife');
+const multiply = require('./lib/multiply');
 
-module.exports = () => multiply(meaningOfLife())
+module.exports = () => multiply(meaningOfLife());
