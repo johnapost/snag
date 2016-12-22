@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "validate": "npm ls",
-    "test": "ava",
+    "dev": "chokidar '**/*.js' -c 'semistandard && ava'",
     "lint": "semistandard",
-    "dev": "chokidar '**/*.js' -c 'semistandard && ava'"
+    "start": "nodemon index.js",
+    "test": "ava",
+    "validate": "npm ls"
   },
   "keywords": [],
   "author": "",
@@ -19,11 +20,15 @@
   "devDependencies": {
     "ava": "^0.17.0",
     "chokidar-cli": "^1.2.0",
+    "nodemon": "^1.11.0",
     "precommit-hook": "^3.0.0",
     "semistandard": "^9.2.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/chrisbodhi/snag"
+  },
+  "dependencies": {
+    "hapi": "^16.0.2"
   }
 }
