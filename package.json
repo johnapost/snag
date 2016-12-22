@@ -7,6 +7,7 @@
     "validate": "npm ls",
     "test": "ava",
     "lint": "standard",
+    "start": "node index.js",
     "dev": "chokidar '**/*.js' -c 'standard && ava'"
   },
   "keywords": [],
@@ -18,5 +19,8 @@
     "chokidar-cli": "^1.2.0",
     "precommit-hook": "^3.0.0",
     "standard": "^8.6.0"
+  },
+  "dependencies": {
+    "botkit": "^0.4.5"
   }
 }
