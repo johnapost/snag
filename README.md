@@ -1,8 +1,9 @@
 # Snag
 
-- Run `npm run dev` to set up watchers for testing and linting
+## Dev Process
+In one window, run `VERIFICATION_TOKEN=abc123 PORT=8765 npm start` to start the server. In another window, run `./node_modules/.bin/lt --port 8765 --subdomain snag` to serve the app, so Slack can talk to it. For bonus points, run `npm run dev` to start watching files for linting and test running.
 
-- Run `npm start` to serve the app at http://localhost:8888 using nodemon
+## Docker Shiz
 
 - Run `npm run build` or `docker build -t <yer-name>/snag .` to build the Docker image locally
 

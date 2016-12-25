@@ -1,51 +1,69 @@
 var Botkit = require('botkit');
+var queue = require('./lib/queue');
 
-if (!process.env.CLIENT_ID || !process.env.CLIENT_SECRET || !process.env.PORT || !process.env.VERIFICATION_TOKEN) {
-  console.log('Error: Specify CLIENT_ID, CLIENT_SECRET, VERIFICATION_TOKEN and PORT in environment');
+if (!process.env.VERIFICATION_TOKEN || !process.env.PORT) {
+  console.log('Error: Specify VERIFICATION_TOKEN and PORT in environment');
   process.exit(1);
 }
 
-var config = {};
-
-var controller = Botkit.slackbot(config).configureSlackApp({
-  clientId: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
-  scopes: ['commands']
-});
+var config = {debug: true};
+var controller = Botkit
+  .slackbot(config);
 
 controller.setupWebserver(process.env.PORT, function (err, webserver) {
+  if (err) {
+    console.error('Cannot start webserver.');
+    process.exit(1);
+  }
   controller.createWebhookEndpoints(controller.webserver);
-
-  controller.createOauthEndpoints(controller.webserver, function (err, req, res) {
-    if (err) {
-      res.status(500).send('ERROR: ' + err);
-    } else {
-      res.send('Success!');
-    }
-  });
 });
 
 controller.on('slash_command', function (slashCommand, message) {
+  console.log('message is', message);
+  /**
+    message is { token: 'xb8NkYtcshPQ50gBIU1EpSDi',
+    team_id: 'T0258D76V',
+    team_domain: 'ownlocal',
+    channel_id: 'C3HEK4Q6M',
+    channel_name: 'skynet',
+    user_id: 'U1US9RX7B',
+    user_name: 'angeloette',
+    command: '/snaggg',
+    text: 'help',
+    response_url: 'https://hooks.slack.com/commands/T0258D76V/121315834294/Vhx5DLuzsnPvuYqpRojJwMuA',
+    user: 'U1US9RX7B',
+    channel: 'C3HEK4Q6M',
+    type: 'slash_command' }
+   */
   switch (message.command) {
-    case '/snag':
-      if (message.token !== process.env.VERIFICATION_TOKEN) return; // just ignore it.
-
-      message.text;
+    case '/snaggg':
+      // Ignore messages without a correct verification token from Slack.
+      if (message.token !== process.env.VERIFICATION_TOKEN) return;
 
       // if no text was supplied, treat it as a help command
-      if (message.text === '' || message.text === 'help') {
-        slashCommand.replyPrivate(message, "I don't know what I'm doing help!!!");
-        return;
+      if (!message.text.length ||
+        message.text.includes('help') ||
+        message.text.includes('halp')
+      ) {
+        slashCommand.replyPrivate(message, queue.helpText());
       }
 
-      // // If we made it here, just echo what the user typed back at them
-      // //TODO You do it!
-      // slashCommand.replyPublic(message, "1", function() {
-      //     slashCommand.replyPublicDelayed(message, "2").then(slashCommand.replyPublicDelayed(message, "3"));
-      // });
+      if (message.text.includes('claim')) {
+        const resource = message.text.split(' ')[1];
+        if (!resource) {
+          slashCommand.replyPrivate(
+            message,
+            'You have to specify a resource to claim, silly.');
+          break;
+        }
 
+        slashCommand.replyPrivate(
+          message,
+          queue.claim(resource, message.user_name));
+        break;
+      }
       break;
     default:
-      slashCommand.replyPublic(message, "I'm afraid I don't know how to " + message.command + ' yet.');
+      slashCommand.replyPublic(message, 'I\'m afraid I don\'t know how to ' + message.command + ' yet.');
   }
 });
