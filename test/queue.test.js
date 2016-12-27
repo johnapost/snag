@@ -4,7 +4,7 @@ const test = require('ava');
 const queue = require('../lib/queue');
 
 test('List all of the queue names', (t) => {
-  const queueNames = '• af-prod\n• af-staging\n• api-prod\n• api-staging\n• lf-prod\n• lf-staging\n• mch-prod\n• mch-staging\n• mp-prod\n• mp-staging\n• po-prod\n• po-staging\n';
+  const queueNames = '• af-prod\n• af-staging\n• api-prod\n• api-staging\n• impd-prod\n• impd-staging\n• lf-prod\n• lf-staging\n• mch-prod\n• mch-staging\n• mp-prod\n• mp-staging\n• po-prod\n• po-staging\n';
   t.deepEqual(queue.listQueues(), queueNames);
 });
 
@@ -19,8 +19,11 @@ test('Claim an open resource', (t) => {
 });
 
 test('Format the resource name', (t) => {
-  const resource = 'af-prod';
-  t.is(queue.prettyify(resource), 'AF Prod');
+  const afProd = 'af-prod';
+  t.is(queue.prettyify(afProd), 'AF Prod');
+
+  const mchStaging = 'mch-staging';
+  t.is(queue.prettyify(mchStaging), 'MCH Staging');
 });
 
 test('Resource name is in the store', (t) => {
