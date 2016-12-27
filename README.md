@@ -1,7 +1,15 @@
 # Snag
 
 ## Dev Process
-In one window, run `VERIFICATION_TOKEN=abc123 PORT=8765 npm start` to start the server. In another window, run `./node_modules/.bin/lt --port 8765 --subdomain snag` to serve the app, so Slack can talk to it. For bonus points, run `npm run dev` to start watching files for linting and test running.
+
+- Clone repo and run `npm install`.
+
+- In one window, run `VERIFICATION_TOKEN=abc123 PORT=8765 npm start` to start the server. In another window, run `./node_modules/.bin/lt --port 8765 --subdomain snag` to serve the app, so Slack can talk to it. For bonus points, run `npm run dev` to start watching files for linting and test running.
+
+- When committing, pre-commit hooks must pass testing, package validation, and linting. To run these individually at any time:
+  - `npm test`
+  - `npm run lint`
+  - `npm run validate`
 
 ## Docker Shiz
 
