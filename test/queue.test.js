@@ -36,21 +36,24 @@ test('Resource name is not in the store', (t) => {
 });
 
 test('Add a username to the resource store', (t) => {
+  const store = {'af-prod': undefined};
   const username = 'X';
   const resource = 'af-prod';
-  t.is(queue.assignResource(resource, username)[resource], username);
+  t.is(queue.assignResource(store, username, resource)[resource], username);
 });
 
 test('Returns a message when resource store is spelled incorrectly', (t) => {
+  const store = {'af-prod': undefined};
   const username = 'X';
   const resource = 'af-prdo';
-  t.is(queue.assignResource(resource, username), 'Sorry, X, I don\'t know what AF Prdo is.');
+  t.is(queue.assignResource(store, username, resource), 'Sorry, X, I don\'t know what AF Prdo is.');
 });
 
 test('Returns a message when resource store is already claimed', (t) => {
+  const store = {'af-prod': 'Y'};
   const username = 'X';
   const resource = 'af-prod';
-  t.is(queue.assignResource(resource, username), 'Sorry, X, AF Prod is currently claimed.');
+  t.is(queue.assignResource(store, username, resource), 'Sorry, X, AF Prod is currently claimed by Y.');
 });
 
 test('Releases the specified resource', (t) => {
@@ -65,6 +68,11 @@ test('Releases all resources claimed by the user', (t) => {
   const username = 'X';
   const updatedStore = queue.releaseResource(store, username);
   t.false(_(updatedStore).values().includes(username));
+});
+
+test('List who has claimed a resource', (t) => {
+  const resource = 'af-prod';
+  t.is(queue.whois(resource), 'X has AF Prod.');
 });
 
 // test('test', (t) => {
