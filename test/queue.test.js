@@ -4,7 +4,7 @@ const test = require('ava');
 const queue = require('../lib/queue');
 
 test('List all of the queue names', (t) => {
-  const queueNames = '• af-prod\n• af-staging\n• api-prod\n• api-staging\n• lf-prod\n• lf-staging\n• mch-prod\n• mch-staging\n• mp-prod\n• mp-staging\n• po-prod\n• po-staging\n';
+  const queueNames = '• af-prod\n• af-staging\n• api-prod\n• api-staging\n• impd-prod\n• impd-staging\n• lf-prod\n• lf-staging\n• mch-prod\n• mch-staging\n• mp-prod\n• mp-staging\n• po-prod\n• po-staging\n';
   t.deepEqual(queue.listQueues(), queueNames);
 });
 
