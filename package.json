@@ -18,7 +18,11 @@
   "engines": {
     "node": "4.3.2"
   },
-  "pre-commit": [],
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ],
   "devDependencies": {
     "ava": "^0.17.0",
     "chokidar-cli": "^1.2.0",
