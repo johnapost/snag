@@ -73,6 +73,20 @@ controller.on('slash_command', function (slashCommand, message) {
           message,
           queue.release(message.user_name, resource));
       }
+
+      // ***** who: Lists who has claimed a resource *****
+      if (message.text.includes('who')) {
+        if (!resource) {
+          slashCommand.replyPrivate(
+            message,
+            'You have to specify a resource to if you want to know who\'s using it, silly.');
+        }
+
+        slashCommand.replyPrivate(
+          message,
+          queue.whois(resource));
+      }
+
       break;
     default:
       slashCommand.replyPublic(message, 'I\'m afraid I don\'t know how to ' + message.command + ' yet.');
