@@ -79,7 +79,7 @@ controller.on('slash_command', function (slashCommand, message) {
         if (!resource) {
           slashCommand.replyPrivate(
             message,
-            'You have to specify a resource to if you want to know who\'s using it, silly.');
+            queue.all());
         }
 
         slashCommand.replyPrivate(

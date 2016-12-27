@@ -3,6 +3,10 @@ const test = require('ava');
 
 const queue = require('../lib/queue');
 
+test.afterEach((t) => {
+  queue.resetStore();
+});
+
 test('List all of the queue names', (t) => {
   const queueNames = '• af-prod\n• af-staging\n• api-prod\n• api-staging\n• impd-prod\n• impd-staging\n• lf-prod\n• lf-staging\n• mch-prod\n• mch-staging\n• mp-prod\n• mp-staging\n• po-prod\n• po-staging\n';
   t.deepEqual(queue.listQueues(), queueNames);
@@ -15,7 +19,7 @@ test('Returns help text', (t) => {
 test('Claim an open resource', (t) => {
   const resource = 'af-prod';
   const username = 'X';
-  t.is(queue.claim(resource, username), 'AF Prod is yours for 30 minutes, X.');
+  t.is(queue.claim(resource, username), `AF Prod is yours, X. Don't forget to release it with \`/snaggg release ${resource}\` when you're finished.`);
 });
 
 test('Format the resource name', (t) => {
@@ -74,8 +78,22 @@ test('Releases all resources claimed by the user', (t) => {
 });
 
 test('List who has claimed a resource', (t) => {
+  const username = 'X';
   const resource = 'af-prod';
+  queue.assignResource(queue.store, username, resource);
+
   t.is(queue.whois(resource), 'X has AF Prod.');
+});
+
+test('Note when no resources have been claimed', (t) => {
+  t.is(queue.all(), 'All resources are available!');
+});
+
+test('List all claimed resources', (t) => {
+  const username = 'X';
+  const resource = 'af-prod';
+  queue.assignResource(queue.store, username, resource);
+  t.is(queue.all(), 'AF Prod: X\n');
 });
 
 // test('test', (t) => {
