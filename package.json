@@ -18,11 +18,14 @@
   "engines": {
     "node": "4.3.2"
   },
-  "pre-commit": [],
+  "pre-commit": [
+    "lint",
+    "validate",
+    "test"
+  ],
   "devDependencies": {
     "ava": "^0.17.0",
     "chokidar-cli": "^1.2.0",
-    "localtunnel": "^1.8.2",
     "nodemon": "^1.11.0",
     "precommit-hook": "^3.0.0",
     "semistandard": "^9.2.0"
