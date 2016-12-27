@@ -7,8 +7,7 @@ if (!process.env.VERIFICATION_TOKEN || !process.env.PORT) {
 }
 
 var config = {debug: true};
-var controller = Botkit
-  .slackbot(config);
+var controller = Botkit.slackbot(config);
 
 controller.setupWebserver(process.env.PORT, function (err, webserver) {
   if (err) {
@@ -40,7 +39,7 @@ controller.on('slash_command', function (slashCommand, message) {
       // Ignore messages without a correct verification token from Slack.
       if (message.token !== process.env.VERIFICATION_TOKEN) return;
 
-      // if no text was supplied, treat it as a help command
+      // ***** help/halp/'': Return help text *****
       if (!message.text.length ||
         message.text.includes('help') ||
         message.text.includes('halp')
@@ -48,19 +47,31 @@ controller.on('slash_command', function (slashCommand, message) {
         slashCommand.replyPrivate(message, queue.helpText());
       }
 
+      // ***** ls: List all of the resources *****
+      if (message.text.includes('ls')) {
+        slashCommand.replyPrivate(message, queue.listQueues());
+      }
+
+      const resource = message.text.split(' ')[1];
+
+      // ***** claim: Claiming a resource *****
       if (message.text.includes('claim')) {
-        const resource = message.text.split(' ')[1];
         if (!resource) {
           slashCommand.replyPrivate(
             message,
             'You have to specify a resource to claim, silly.');
-          break;
         }
 
         slashCommand.replyPrivate(
           message,
           queue.claim(resource, message.user_name));
-        break;
+      }
+
+      // ***** release: Releasing a resource *****
+      if (message.text.includes('release')) {
+        slashCommand.replyPrivate(
+          message,
+          queue.release(message.user_name, resource));
       }
       break;
     default:
