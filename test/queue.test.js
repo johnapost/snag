@@ -19,8 +19,11 @@ test('Claim an open resource', (t) => {
 });
 
 test('Format the resource name', (t) => {
-  const resource = 'af-prod';
-  t.is(queue.prettyify(resource), 'AF Prod');
+  const afProd = 'af-prod';
+  t.is(queue.prettyify(afProd), 'AF Prod');
+
+  const mchStaging = 'mch-staging';
+  t.is(queue.prettyify(mchStaging), 'MCH Staging');
 });
 
 test('Resource name is in the store', (t) => {
