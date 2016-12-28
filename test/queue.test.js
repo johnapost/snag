@@ -2,6 +2,7 @@ const _ = require('lodash');
 const test = require('ava');
 
 const queue = require('../lib/queue');
+const help = require('../lib/help_text');
 
 test.afterEach((t) => {
   queue.resetStore();
@@ -14,7 +15,7 @@ test('List all of the queue names', (t) => {
 });
 
 test('Returns help text', (t) => {
-  t.is(queue.helpText(), 'In space, no one can hear you scream.');
+  t.is(queue.helpText(), help);
 });
 
 test('Claim an open resource', (t) => {
