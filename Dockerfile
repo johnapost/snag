@@ -11,5 +11,9 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-EXPOSE 8888
+# Set env vars
+ARG SNAG_TOKEN
+ENV PORT=8765 VERIFICATION_TOKEN=$SNAG_TOKEN
+
+EXPOSE $PORT
 CMD [ "npm", "start" ]
