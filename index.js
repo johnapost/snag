@@ -14,6 +14,15 @@ controller.setupWebserver(process.env.PORT, function (err, webserver) {
     console.error('Cannot start webserver.');
     process.exit(1);
   }
+
+  webserver.get(['/', '/health', '/status'], (req, res) => {
+    res.send({health: 'butts'});
+  });
+
+  // webserver.get('/status', (req, res) => {
+  //   res.send({health: 'butts'});
+  // });
+
   controller.createWebhookEndpoints(controller.webserver);
 });
 
