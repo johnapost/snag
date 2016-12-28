@@ -14,7 +14,7 @@ test('List all of the queue names', (t) => {
 });
 
 test('Returns help text', (t) => {
-  t.is(queue.helpText(), 'In space, no one can hear you scream.');
+  t.is(queue.helpText(), 'This is the help text.');
 });
 
 test('Claim an open resource', (t) => {
