@@ -6,9 +6,10 @@
   "scripts": {
     "build": "docker build -t snag .",
     "dev": "chokidar '**/*.js' -c 'semistandard && ava'",
+    "dev-start": "nodemon index.js",
+    "docker-serve": "docker run -p 49160:8765 -d snag",
     "lint": "semistandard",
-    "serve": "docker run -p 49160:8888 -d snag",
-    "start": "nodemon index.js",
+    "start": "node index.js",
     "test": "ava",
     "validate": "npm ls"
   },
@@ -16,7 +17,7 @@
   "author": "",
   "license": "GPL-3.0",
   "engines": {
-    "node": "4.3.2"
+    "node": "7.3.0"
   },
   "pre-commit": [
     "lint",

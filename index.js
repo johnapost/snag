@@ -1,8 +1,13 @@
 var Botkit = require('botkit');
 var queue = require('./lib/queue');
 
-if (!process.env.VERIFICATION_TOKEN || !process.env.PORT) {
-  console.log('Error: Specify VERIFICATION_TOKEN and PORT in environment');
+if (!process.env.VERIFICATION_TOKEN) {
+  console.log('Error: Specify VERIFICATION_TOKEN in environment');
+  process.exit(1);
+}
+
+if (!process.env.PORT) {
+  console.log('Error: Specify PORT in environment');
   process.exit(1);
 }
 
