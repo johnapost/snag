@@ -19,10 +19,6 @@ controller.setupWebserver(process.env.PORT, function (err, webserver) {
     res.send({health: 'butts'});
   });
 
-  // webserver.get('/status', (req, res) => {
-  //   res.send({health: 'butts'});
-  // });
-
   controller.createWebhookEndpoints(controller.webserver);
 });
 
