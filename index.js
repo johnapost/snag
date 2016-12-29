@@ -97,6 +97,14 @@ controller.on('slash_command', function (slashCommand, message) {
           queue.whois(resource));
       }
 
+      // // ***** `resource`: alias for claiming a resource *****
+      if (queue.store[message.text]) {
+        slashCommand.replyPrivate(
+          message,
+          queue.claim(message.text, message.user_name)
+        );
+      }
+
       break;
     default:
       slashCommand.replyPublic(message, 'I\'m afraid I don\'t know how to ' + message.command + ' yet.');
