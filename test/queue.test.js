@@ -22,7 +22,7 @@ test('Claim an open resource', (t) => {
   const resource = 'af-prod';
   const username = 'X';
 
-  t.is(queue.claim(resource, username), `AF Prod is yours, X. Don't forget to release it with \`/snaggg release ${resource}\` when you're finished.`);
+  t.is(queue.claim(resource, username), `AF Prod is yours, X. Don't forget to release it with \`/snag release ${resource}\` when you're finished.`);
 });
 
 test('Format the resource name', (t) => {
