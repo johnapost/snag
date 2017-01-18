@@ -27,10 +27,6 @@ controller.setupWebserver(process.env.PORT, function (err, webserver) {
   controller.createWebhookEndpoints(controller.webserver);
 });
 
-controller.spawn({
-  token: process.env.VERIFICATION_TOKEN
-}).startRTM();
-
 controller.on('slash_command', function (slashCommand, message) {
   console.log('message is', message);
   /**
