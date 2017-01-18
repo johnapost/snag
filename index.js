@@ -74,14 +74,14 @@ controller.on('slash_command', function (slashCommand, message) {
 
         slashCommand.replyPrivate(
           message,
-          queue.claim(resource, message.user_name));
+          queue.claim(resource.toLowerCase(), message.user_name));
       }
 
       // ***** release: Releasing a resource *****
       if (message.text.includes('release')) {
         slashCommand.replyPrivate(
           message,
-          queue.release(message.user_name, resource));
+          queue.release(message.user_name, resource.toLowerCase()));
       }
 
       // ***** who: Lists who has claimed a resource *****
@@ -94,7 +94,7 @@ controller.on('slash_command', function (slashCommand, message) {
 
         slashCommand.replyPrivate(
           message,
-          queue.whois(resource));
+          queue.whois(resource.toLowerCase()));
       }
 
       break;
