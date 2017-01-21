@@ -107,6 +107,13 @@ test('List all claimed resources', (t) => {
   t.is(queue.all(), 'AF Prod: X\n');
 });
 
+test('Checks is a user has claimed a resource', (t) => {
+  const username = 'X';
+  const resource = 'af-prod';
+
+  t.is(queue.hasResource(username, resource), true);
+});
+
 // test('test', (t) => {
 //   t.is(test(), expectedResult);
 // });
