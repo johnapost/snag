@@ -37,7 +37,7 @@ controller.on('slash_command', function (slashCommand, message) {
     channel_name: 'skynet',
     user_id: 'U1US9RX7B',
     user_name: 'angeloette',
-    command: '/snaggg',
+    command: '/snag',
     text: 'help',
     response_url: 'https://hooks.slack.com/commands/T0258D76V/121315834294/Vhx5DLuzsnPvuYqpRojJwMuA',
     user: 'U1US9RX7B',
@@ -45,7 +45,7 @@ controller.on('slash_command', function (slashCommand, message) {
     type: 'slash_command' }
    */
   switch (message.command) {
-    case '/snaggg':
+    case '/snag':
       // Ignore messages without a correct verification token from Slack.
       if (message.token !== process.env.VERIFICATION_TOKEN) return;
 
@@ -74,14 +74,14 @@ controller.on('slash_command', function (slashCommand, message) {
 
         slashCommand.replyPrivate(
           message,
-          queue.claim(resource, message.user_name));
+          queue.claim(resource.toLowerCase(), message.user_name));
       }
 
       // ***** release: Releasing a resource *****
       if (message.text.includes('release')) {
         slashCommand.replyPrivate(
           message,
-          queue.release(message.user_name, resource));
+          queue.release(message.user_name, resource.toLowerCase()));
       }
 
       // ***** who: Lists who has claimed a resource *****
@@ -94,7 +94,7 @@ controller.on('slash_command', function (slashCommand, message) {
 
         slashCommand.replyPrivate(
           message,
-          queue.whois(resource));
+          queue.whois(resource.toLowerCase()));
       }
 
       break;
