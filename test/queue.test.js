@@ -107,13 +107,18 @@ test('List all claimed resources', (t) => {
   t.is(queue.all(), 'AF Prod: X\n');
 });
 
-test('Checks is a user has claimed a resource', (t) => {
+test('A user has claimed a resource', (t) => {
   const username = 'X';
   const resource = 'af-prod';
+  const store = {'af-prod': username};
 
-  t.is(queue.hasResource(username, resource), true);
+  t.is(queue.hasResource(store, username, resource), true);
 });
 
-// test('test', (t) => {
-//   t.is(test(), expectedResult);
-// });
+test('A user has not claimed a resource', (t) => {
+  const username = 'X';
+  const resource = 'af-prod';
+  const store = {'af-prod': 'Y'};
+
+  t.is(queue.hasResource(store, username, resource), false);
+});

@@ -97,12 +97,26 @@ controller.on('slash_command', function (slashCommand, message) {
           queue.whois(resource.toLowerCase()));
       }
 
-      // // ***** `resource`: alias for claiming a resource *****
+      // ***** `resource`: alias for claiming a resource *****
       if (queue.store[message.text]) {
-        slashCommand.replyPrivate(
-          message,
-          queue.claim(message.text, message.user_name)
-        );
+        // Release the resource that the user already claimed
+        if (queue.hasResource(
+          queue.store, message.username, queue.store[message.text]
+        )) {
+          slashCommand.replyPrivate(
+            message,
+            queue.release(
+              message.user_name, queue.store[message.text].toLowerCase()
+            )
+          );
+
+        // Claim the unclaimed resource
+        } else {
+          slashCommand.replyPrivate(
+            message,
+            queue.claim(message.text, message.user_name)
+          );
+        }
       }
 
       break;
